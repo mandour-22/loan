@@ -10,9 +10,7 @@ function App() {
     monthlySalary: 0,
     monthly: 0,
   });
-  const [fav, setFav] = useState(icon);
   const [show, setShow] = useState(false);
-  const [disable, setDisable] = useState(true);
 
   const handleOnSubmit = () => {
     if (!notes.amount || !notes.interest || !notes.monthly) {
