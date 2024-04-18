@@ -1,24 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [notes, setNotes] = useState({
+    amount: 0,
+    interest: 0,
+    monthlySalary: 0,
+    monthly: 0,
+  });
+  const [show, setShow] = useState(false);
+  const [disable, setDisable] = useState(true);
+
+  const handleOnSubmit = () => {
+    if (!notes.amount || !notes.interest || !notes.monthly) {
+      alert("الرجاء إدخال جميع البيانات المطلوبة");
+    } else {
+      setShow(true); // Show results
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section>
+      <div className="container">
+        <h1>حاسبة القروض</h1>
+        <form>
+          <div>
+            <label>$</label>
+            <input
+              required
+              type="number"
+              onChange={(e) => setNotes({ ...notes, amount: e.target.value })}
+              id="amount"
+              placeholder="مبلغ القرض"
+            />
+          </div>
+          <div>
+            <label>%</label>
+            <input
+              required
+              type="number"
+              onChange={(e) => setNotes({ ...notes, interest: e.target.value })}
+              id="interest"
+              placeholder="الفوائد"
+            />
+          </div>
+          <div>
+            <input
+              required
+              type="number"
+              onChange={(e) => setNotes({ ...notes, monthly: e.target.value })}
+              id="monthlySalary"
+              placeholder="عدد الاشهر"
+            />
+          </div>
+        </form>
+        <button onClick={handleOnSubmit}>النتائج</button>
+        {show && (
+          <>
+            <h6>
+              إجمالي الفوائد المستحقة :{" "}
+              <span>{(notes.amount * notes.interest) / 100}</span>
+            </h6>
+            <h6>
+              المبلغ الإجمالي:
+              <span>
+                {+notes.amount + +(notes.amount * notes.interest) / 100}
+              </span>
+            </h6>
+            <h6>
+              المبلغ الشهري :{" "}
+              <span>
+                {Math.round(
+                  (+notes.amount + +(notes.amount * notes.interest) / 100) /
+                    +notes.monthly
+                )}
+              </span>
+            </h6>
+            <h6>
+              اجمالى الاشهر : <span>{notes.monthly}</span>
+            </h6>
+          </>
+        )}
+      </div>
+    </section>
   );
 }
 
