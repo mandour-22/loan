@@ -69,7 +69,7 @@ function App() {
                 <span>{(notes.amount * notes.interest) / 100}</span>
               </h6>
               <h6>
-                المبلغ الإجمالي:
+                المبلغ الإجمالي:{" "}
                 <span>
                   {+notes.amount + +(notes.amount * notes.interest) / 100}
                 </span>
